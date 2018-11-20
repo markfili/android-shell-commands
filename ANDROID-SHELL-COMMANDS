@@ -1,0 +1,82 @@
+# official manual
+https://developer.android.com/studio/command-line/adb
+
+# additional commands
+https://www.sromku.com/blog/android-adb-clear-notifications
+
+# dump activities, services, everything!
+dumpsys
+# ex.: dumpsys package com.test.app | grep versionName
+
+# Gets an Android system property, or lists them all.
+getprop
+
+# dump settings
+settings list {system, secure, global}
+
+# currently focused app
+adb shell dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'
+
+# clear app data
+pm clear com.test.app
+
+# remounting and installing binaries on busybox
+mount -o remount,rw /system        # make sure we can write to system
+cp /sdcard/busybox /system/xbin    # copy the binaries to /system/xbin
+cp /sdcard/dropbear /system/xbin
+cd /system/xbin                    # switch to our target directory
+chmod 755 busybox dropbear         # make sure we've set the correct permissions
+busybox --install /system/xbin     # advice busybox to create all its symlinks here
+
+# dropbear debugging
+root@p211:/root/.ssh # killall dropbear
+root@p211:/root/.ssh # dropbear -v -E -F -a -Y toor
+
+# get screenshot of current display
+adb shell "screencap -p | base64" | sed 's/\r$//' | base64 -d | display
+
+# record screen of device
+screenrecord --verbose /storage/emulated/0/demo.mp4
+
+#screen stays on while testing
+adb shell svc power stayon usb
+
+# run vncserver
+./data/data/org.arcsinx.reversevncserver/lib/libreversevncserver.so
+
+# put it into background so you can leave the terminal
+# This worked for me on Ubuntu linux while in tcshell.
+# Ctrl Z to pause it
+# bg to run in background
+# jobs to get its job number
+# nohup %n where n is the job number
+
+# credential locations
+# SSH - /etc/dropbear/.ssh/authorized_keys
+# ADB - /data/misc/adb/adb_keys
+
+# LOGCAT per app
+adb logcat | grep -F "`adb shell ps | grep com.test.app | cut -c10-15`"
+
+# something for when the libs for running the emulator are not found
+tools$ ./emulator -avd Nexus_5X_API_25 -use-system-libs
+
+# TODO - list commands for
+# Uninstall app
+# Start app
+# Kill app
+# Restart app
+# Clear app data
+# Clear app data and restart app
+
+# Reboot device
+# Clear app data and reboot device
+
+# start launcher activity
+am start -aandroid.intent.action.MAIN -candroid.intent.category.LAUNCHER -ncom.test.app/.MainActivity
+
+# see all events
+logcat -b events -v threadtime -d *:v | more
+
+# reboot the device without the SSH hanging
+ssh root@172.17.31.51 -p 2223 "{ sleep 1; reboot; } >/dev/null &"
