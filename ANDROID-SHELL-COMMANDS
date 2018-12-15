@@ -80,3 +80,18 @@ logcat -b events -v threadtime -d *:v | more
 
 # reboot the device without the SSH hanging
 ssh root@172.17.31.51 -p 2223 "{ sleep 1; reboot; } >/dev/null &"
+
+# enable Developer Options (disable is with 0)
+settings put global development_settings_enabled 1
+
+# enable stay awake option (disable is with 0)
+settings put global stay_on_while_plugged_in 1
+
+# run Developer Options Activity
+am start -n com.android.settings/.DevelopmentSettings
+
+# measure the time to initial display
+adb [-d|-e|-s <serialNumber>] shell am start -S -W
+com.example.app/.MainActivity
+-c android.intent.category.LAUNCHER
+-a android.intent.action.MAIN
