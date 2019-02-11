@@ -95,3 +95,6 @@ adb [-d|-e|-s <serialNumber>] shell am start -S -W
 com.example.app/.MainActivity
 -c android.intent.category.LAUNCHER
 -a android.intent.action.MAIN
+
+# print info about device connected to HDMI
+cat /sys/devices/virtual/amhdmitx/amhdmitx0/edid

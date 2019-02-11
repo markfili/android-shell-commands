@@ -1,0 +1,14 @@
+HDMI CEC commands
+Connected device power status
+Request
+echo 0x40 0x8F > /sys/class/cec/cmd
+/sys/class/cec/dump_reg
+
+Response
+On - 04 90 00
+Off -
+Example:
+ 02-06 16:33:10.568  4012  4105 D CEC     : [cec_rx_loop]msg:04 90 00
+02-06 16:33:10.570  4012  4105 D HdmiCecExtend: onCecMessageRx
+02-06 16:33:10.657  4012  4012 W HDMI    : [1]:Unhandled cec command:<Report Power Status> src: 0, dst: 4, params: 00
+02-06 16:33:10.762  4012  4104 D CEC     : [cec_send_message][4 -> 0]len:3, body:00 90 00 , result:success
