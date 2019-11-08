@@ -16,6 +16,7 @@ settings list {system, secure, global}
 
 # currently focused app
 adb shell dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'
+if [[ $(adb shell dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp') == *com.betinvent.display/.screens* ]]; then echo "yes"; fi
 
 # clear app data
 pm clear com.test.app
@@ -98,3 +99,6 @@ com.example.app/.MainActivity
 
 # print info about device connected to HDMI
 cat /sys/devices/virtual/amhdmitx/amhdmitx0/edid
+
+# check APK signature/certificate
+keytool -printcert -jarfile unpacked.apk

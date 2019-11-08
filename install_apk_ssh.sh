@@ -23,6 +23,6 @@ do
     IP="$(echo $line | cut -d':' -f1)"
     PORT="$(echo $line | cut -d':' -f2)"
     timeout 20 scp -P $PORT $SOURCE root@$IP:$DEST;
-    ssh -n -oStrictHostKeyChecking=no "root@${IP}" -p $PORT "am force-stop ${APP_PACKAGE_NAME}; mv ${DEST} /data/local/tmp; pm install -r -t -d /data/local/tmp/${APK_FILE}; am start -n${APP_PACKAGE_NAME}/${APP_LAUNCHER_ACTIVITY};";
+    ssh -n -oStrictHostKeyChecking=no "root@${IP}" -p $PORT "am force-stop ${APP_PACKAGE_NAME}; mv ${DEST} /data/local/tmp/; pm install -r -t -d /data/local/tmp/${APK_FILE}; am start -n${APP_PACKAGE_NAME}/${APP_LAUNCHER_ACTIVITY};";
     sleep 1;
 done < $DEVICES_IP_FILE

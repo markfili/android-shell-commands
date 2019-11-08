@@ -5,8 +5,8 @@
 
 # while read IP
 # do
-    BROWSER_APK=/home/user/Development/android/webviews/webview.apk
-    IP=172.17.31.248
+    BROWSER_APK=/home/marko/Development/android/sources/chromium-webview/prebuilt/arm/webview.apk
+    IP=172.17.31.126:5555
     echo $IP
     wait
     timeout 20 xterm -e "adb disconnect;"
