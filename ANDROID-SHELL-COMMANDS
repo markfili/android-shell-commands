@@ -33,7 +33,10 @@ busybox --install /system/xbin     # advice busybox to create all its symlinks h
 root@p211:/root/.ssh # killall dropbear
 root@p211:/root/.ssh # dropbear -v -E -F -a -Y toor
 
-# get screenshot of current display
+# get screenshot of current display (mac, linux (not tested), windows (not tested))
+adb exec-out screencap -p > screen.png
+
+# get screenshot of current display (Linux only due to "display")
 adb shell "screencap -p | base64" | sed 's/\r$//' | base64 -d | display
 
 # record screen of device
